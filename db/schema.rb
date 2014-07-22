@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140711111702) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "interactions", force: true do |t|
     t.string   "interaction"
     t.text     "description"
