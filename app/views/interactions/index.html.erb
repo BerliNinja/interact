@@ -1,0 +1,54 @@
+<h1>Listing interactions</h1>
+<script type="text/javascript">
+  function initialize_map() {
+    handler = Gmaps.build('Google');
+    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function() {
+      raw_markers = <%= raw @markers.to_json %>;
+      markers = handler.addMarkers(raw_markers);
+      handler.bounds.extendWith(markers);
+      handler.getMap().setZoom(4);
+      my_center = _.find(raw_markers, function(marker){
+        return (marker.lat != null) && (marker.lng != null);});
+      handler.getMap().setCenter(my_center);
+    });
+  }
+  google.maps.event.addDomListener(window, "load", initialize_map);
+</script>
+
+<div id="map"></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Interaction</th>
+      <th>Description</th>
+      <th>Picture</th>
+      <th>Interactor</th>
+      <th>Interacted</th>
+      <th>Address</th>
+      <th>Ansehen</th>
+      <th>Bearbeiten</th>
+      <th>Löschen</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @interactions.each do |interaction| %>
+      <tr>
+        <td><%= interaction.interaction %></td>
+        <td><%= interaction.description %></td>
+        <td class ="border"><%= image_tag(interaction.picture_url, :width => 60) if interaction.picture.present? %></td>
+        <td><%= interaction.interactor %></td>
+        <td><%= interaction.interacted %></td>
+        <td><%= interaction.address %></td>
+        <td><%= link_to 'XXX', interaction %></td>
+        <td><%= link_to 'XXX', edit_interaction_path(interaction) %></td>
+        <td><%= link_to 'XXX', interaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Interaction', new_interaction_path %>

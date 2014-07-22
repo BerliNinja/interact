@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Interaction:</strong>
+  <%= @interaction.interaction %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @interaction.description %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%= image_tag(@interaction.picture_url, :width => 300) if @interaction.picture.present? %>
+</p>
+
+<p>
+  <strong>Interactor:</strong>
+  <%= @interaction.interactor %>
+</p>
+
+<p>
+  <strong>Interacted:</strong>
+  <%= @interaction.interacted %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @interaction.address %>
+</p>
+
+<%= link_to 'Edit', edit_interaction_path(@interaction) %> |
+<%= link_to 'Back', interactions_path %>
